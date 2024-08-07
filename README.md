@@ -24,7 +24,7 @@ JKT48 SHOWROOM API
 
 ### Endpoint Usage
 
-**Base Url** : `https://jkt48-showroom-api.vercel.app/`
+**Base Url** : `https://jkt48-showroom-api-puce.vercel.app/`
 
 ----
 
