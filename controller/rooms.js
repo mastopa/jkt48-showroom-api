@@ -12,11 +12,7 @@ const Rooms = {
       for (let i = 0; i < rooms.length; i++) {
         const index = rooms[i];
         if (
-          index.name.includes("JKT48") &&
-          !index.url_key.includes("JKT48_Eve") &&
-          !index.url_key.includes("JKT48_Ariel") &&
-          !index.url_key.includes("JKT48_Anin") &&
-          !index.url_key.includes("JKT48_Cindy")
+          index.name.includes("JKT48")
         ) {
           roomList.push(index);
         }
