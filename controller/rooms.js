@@ -32,7 +32,6 @@ const Rooms = {
     try {
       let onLive = [];
       let roomIsLive = [];
-      let findSisca = [];
 
       const response = await fetchService(`${LIVE}/onlives`, res);
       const data = response.data.onlives;
@@ -49,24 +48,6 @@ const Rooms = {
         const roomLive = onLive[0].lives;
 
         roomLive.forEach((item) => {
-          if (item.room_url_key.includes("JKT48")) {
-            roomIsLive.push(item);
-          }
-        });
-      }
-
-      // Find Sisca
-      for (let i = 0; i < data.length; i++) {
-        const index = data[i];
-        if (index.genre_name === "Music") {
-          findSisca.push(index);
-        }
-      }
-
-      if (findSisca.length) {
-        const siscaLive = findSisca[0].lives;
-
-        siscaLive.forEach((item) => {
           if (item.room_url_key.includes("JKT48")) {
             roomIsLive.push(item);
           }
