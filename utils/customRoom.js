@@ -45,7 +45,7 @@ const getCustomRoom = (type) => {
       raisha: "400718",
       adel: "318239",
       gracia: "318208",
-            aralie: "509985",
+      aralie: "509985",
       delynn: "509992",
       shasa: "509995",
       alya: "461451",
