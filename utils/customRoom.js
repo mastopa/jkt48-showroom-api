@@ -59,7 +59,7 @@ const getCustomRoom = (type) => {
       adel: "318239",
       gracia: "318208",
     };
-
+  }
   return rooms;
 };
 
