@@ -4,7 +4,6 @@ const getCustomRoom = (type) => {
     rooms = {
       aralie: "509985",
       delynn: "509992",
-      shasa: "509995",
       alya: "461451",
       anindya: "461452",
       lana: "509997",
