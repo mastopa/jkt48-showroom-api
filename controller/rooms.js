@@ -12,7 +12,11 @@ const Rooms = {
       for (let i = 0; i < rooms.length; i++) {
         const index = rooms[i];
         if (
-          index.name.includes("JKT48")
+          index.name.includes("JKT48") &&
+          !index.url_key.includes("JKT48_Eve") &&
+          !index.url_key.includes("JKT48_Ariel") &&
+          !index.url_key.includes("JKT48_Anin") &&
+          !index.url_key.includes("JKT48_Cindy")
         ) {
           roomList.push(index);
         }
@@ -20,7 +24,12 @@ const Rooms = {
 
       res.send(roomList);
     } catch (error) {
-      return error;
+      console.log('error getRoomList', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 
@@ -28,6 +37,7 @@ const Rooms = {
     try {
       let onLive = [];
       let roomIsLive = [];
+      let findSisca = [];
 
       const response = await fetchService(`${LIVE}/onlives`, res);
       const data = response.data.onlives;
@@ -50,6 +60,24 @@ const Rooms = {
         });
       }
 
+      // Find Sisca
+      for (let i = 0; i < data.length; i++) {
+        const index = data[i];
+        if (index.genre_name === "Music") {
+          findSisca.push(index);
+        }
+      }
+
+      if (findSisca.length) {
+        const siscaLive = findSisca[0].lives;
+
+        siscaLive.forEach((item) => {
+          if (item.room_url_key.includes("JKT48")) {
+            roomIsLive.push(item);
+          }
+        });
+      }
+
       if (roomIsLive.length === 0) {
         res.send({
           message: "Room Not Live",
@@ -64,7 +92,12 @@ const Rooms = {
         data: roomIsLive,
       });
     } catch (error) {
-      return error;
+      console.log('error getRoomLive', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 
@@ -85,7 +118,12 @@ const Rooms = {
 
       res.send(profile);
     } catch (error) {
-      res.send(error);
+      console.log('error getProfile', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 
@@ -115,12 +153,17 @@ const Rooms = {
 
       res.send(totalRank);
     } catch (error) {
-      res.send(error);
+      console.log('error getTotalRank', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 
   getGen10Member: async (req, res) => {
-    const ROOMS = getCustomRoom('gen_10')
+    const ROOMS = getCustomRoom("gen_10");
     const promises = Object.values(ROOMS).map(async (room_id) => {
       const response = await fetchService(
         `${ROOM}/profile?room_id=${room_id}`,
@@ -133,12 +176,17 @@ const Rooms = {
       const newMember = await Promise.all(promises);
       res.send(newMember);
     } catch (error) {
-      res.send(error);
+      console.log('error getGen10Member', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 
   getTrainee: async (req, res) => {
-    const ROOMS = getCustomRoom('trainee')
+    const ROOMS = getCustomRoom("trainee");
     const promises = Object.values(ROOMS).map(async (room_id) => {
       const response = await fetchService(
         `${ROOM}/profile?room_id=${room_id}`,
@@ -151,7 +199,12 @@ const Rooms = {
       const newMember = await Promise.all(promises);
       res.send(newMember);
     } catch (error) {
-      res.send(error);
+      console.log('error getTrainee', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 
@@ -166,7 +219,12 @@ const Rooms = {
 
       res.send(fanLetter);
     } catch (error) {
-      res.send(error);
+      console.log('error getFanLetter', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 
@@ -182,7 +240,12 @@ const Rooms = {
 
       res.send(schedule);
     } catch (error) {
-      res.send(error);
+      console.log('error getTheaterSchedule', error);
+      res.status(400).json({
+        code: 400,
+        success: false,
+        message: error?.message ?? "Server Error",
+      });
     }
   },
 };
