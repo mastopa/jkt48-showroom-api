@@ -38,6 +38,8 @@ const getCustomRoom = (type) => {
       indira: "400716",
       lyn: "400717",
       raisha: "400718",
+      greesel: "461479",
+      gracie: "461478",
     };
   }
   return rooms;
